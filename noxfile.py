@@ -56,10 +56,10 @@ def tests(session: nox.Session, tox_version: str) -> None:
     #     f".coverage.{sys.platform}.{session.python}.tox{tox_version.lstrip('<')}"
     # )
 
+    session.create_tmp()  # Fixes permission errors on Windows
+    session.install("-r", "requirements-test.txt")
+    session.install("-e.[tox_to_nox]")
     session.run("python", "--version")
-    # session.create_tmp()  # Fixes permission errors on Windows
-    # session.install("-r", "requirements-test.txt")
-    # session.install("-e.[tox_to_nox]")
     # if tox_version != "latest":
     #     session.install(f"tox{tox_version}")
     # session.run("pytest")
