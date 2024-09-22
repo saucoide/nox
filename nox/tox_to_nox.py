@@ -90,7 +90,6 @@ def main() -> None:
 
         config: dict[str, dict[str, Any]] = {}
 
-        print("config sections:")
         for name, section in original_config.items():
             if name == "DEFAULT":
                 continue

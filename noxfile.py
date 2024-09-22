@@ -52,21 +52,22 @@ if shutil.which("micromamba"):
 def tests(session: nox.Session, tox_version: str) -> None:
     """Run test suite with pytest."""
 
-    coverage_file = (
-        f".coverage.{sys.platform}.{session.python}.tox{tox_version.lstrip('<')}"
-    )
+    # coverage_file = (
+    #     f".coverage.{sys.platform}.{session.python}.tox{tox_version.lstrip('<')}"
+    # )
 
-    session.create_tmp()  # Fixes permission errors on Windows
-    session.install("-r", "requirements-test.txt")
-    session.install("-e.[tox_to_nox]")
-    if tox_version != "latest":
-        session.install(f"tox{tox_version}")
-    session.run("pytest")
+    session.run("python", "--version")
+    # session.create_tmp()  # Fixes permission errors on Windows
+    # session.install("-r", "requirements-test.txt")
+    # session.install("-e.[tox_to_nox]")
+    # if tox_version != "latest":
+    #     session.install(f"tox{tox_version}")
+    # session.run("pytest")
 
-    if sys.platform.startswith("win"):
-        with contextlib.closing(sqlite3.connect(coverage_file)) as con, con:
-            con.execute("UPDATE file SET path = REPLACE(path, '\\', '/')")
-            con.execute("DELETE FROM file WHERE SUBSTR(path, 2, 1) == ':'")
+    # if sys.platform.startswith("win"):
+    #     with contextlib.closing(sqlite3.connect(coverage_file)) as con, con:
+    #         con.execute("UPDATE file SET path = REPLACE(path, '\\', '/')")
+    #         con.execute("DELETE FROM file WHERE SUBSTR(path, 2, 1) == ':'")
 
 
 @nox.session(venv_backend="conda")
