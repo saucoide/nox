@@ -50,6 +50,7 @@ def test_trivial(makeconfig):
     """
         )
     )
+    print(result)
     assert (
         result
         == textwrap.dedent(
@@ -63,7 +64,6 @@ def test_trivial(makeconfig):
     """
         ).lstrip()
     )
-    assert sys.version == "what"
 
 
 def test_skipinstall(makeconfig):
