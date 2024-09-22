@@ -42,6 +42,19 @@ def makeconfig(tmpdir):
     return makeconfig
 
 
+def test_sauco():
+    from subprocess import check_output
+    import sys
+
+    output = check_output(["python", "--version"], text=True)
+    print(output)
+
+    print(sys.executable)
+    print(sys.version)
+
+    assert False
+
+
 def test_trivial(makeconfig):
     result = makeconfig(
         textwrap.dedent(

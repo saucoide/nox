@@ -59,10 +59,9 @@ def tests(session: nox.Session, tox_version: str) -> None:
     session.create_tmp()  # Fixes permission errors on Windows
     session.install("-r", "requirements-test.txt")
     session.install("-e.[tox_to_nox]")
-    session.run("python", "--version")
-    # if tox_version != "latest":
-    #     session.install(f"tox{tox_version}")
-    # session.run("pytest")
+    if tox_version != "latest":
+        session.install(f"tox{tox_version}")
+    session.run("pytest")
 
     # if sys.platform.startswith("win"):
     #     with contextlib.closing(sqlite3.connect(coverage_file)) as con, con:
