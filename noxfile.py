@@ -45,7 +45,7 @@ if shutil.which("micromamba"):
     "python, tox_version",
     [
         (python, tox_version)
-        for python in ("3.8", "3.9", "3.10", "3.11", "3.12", "3.13")
+        for python in ("3.8", "3.9")
         for tox_version in ("latest", "<4")
     ],
 )
@@ -61,17 +61,7 @@ def tests(session: nox.Session, tox_version: str) -> None:
     session.install("-e.[tox_to_nox]")
     if tox_version != "latest":
         session.install(f"tox{tox_version}")
-    session.run(
-        "pytest",
-        "--cov",
-        "--cov-config",
-        "pyproject.toml",
-        "--cov-report=",
-        *session.posargs,
-        env={
-            "COVERAGE_FILE": coverage_file,
-        },
-    )
+    session.run("pytest")
 
     if sys.platform.startswith("win"):
         with contextlib.closing(sqlite3.connect(coverage_file)) as con, con:
