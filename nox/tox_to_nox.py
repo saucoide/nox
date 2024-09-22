@@ -80,6 +80,14 @@ def main() -> None:
         print("tox output")
         print(output)
 
+        toxversion = check_output(["tox", "--version"], text=True)
+        print(toxversion)
+        toxlist = check_output(["tox", "list"], text=True)
+        print(toxlist)
+
+        pyversion = check_output(["python", "--version"], text=True)
+        print(pyversion)
+
         config: dict[str, dict[str, Any]] = {}
 
         print("config sections:")
@@ -89,8 +97,6 @@ def main() -> None:
 
             config[name] = dict(section)
             # Convert set_env from string to dict
-            for a, b in section.items():
-                print(a, b)
             set_env = {}
             for var in section.get("set_env", "").strip().splitlines():
                 k, v = var.split("=")
@@ -135,7 +141,5 @@ def main() -> None:
         config = tox.config.parseconfig([])
 
     output = _TEMPLATE.render(config=config, wrapjoin=wrapjoin, fixname=fixname)
-    print("output")
-    print(output)
 
     write_output_to_file(output, args.output)

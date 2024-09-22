@@ -52,8 +52,6 @@ def test_trivial(makeconfig):
         )
     )
 
-    print(f"envlist = py{PYTHON_VERSION_NODOT}")
-    print(result)
     assert (
         result
         == textwrap.dedent(
