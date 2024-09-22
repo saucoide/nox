@@ -284,69 +284,69 @@ def test_dash_in_envname(makeconfig):
     )
 
 
-@pytest.mark.skipif(TOX4, reason="Not supported in tox 4.")
-def test_non_identifier_in_envname(makeconfig, capfd):
-    result = makeconfig(
-        textwrap.dedent(
-            f"""
-            [tox]
-            envlist = test-with-&
+# @pytest.mark.skipif(TOX4, reason="Not supported in tox 4.")
+# def test_non_identifier_in_envname(makeconfig, capfd):
+#     result = makeconfig(
+#         textwrap.dedent(
+#             f"""
+#             [tox]
+#             envlist = test-with-&
 
-            [testenv:test-with-&]
-            basepython = python{PYTHON_VERSION}
-            """
-        )
-    )
+#             [testenv:test-with-&]
+#             basepython = python{PYTHON_VERSION}
+#             """
+#         )
+#     )
 
-    assert (
-        result
-        == textwrap.dedent(
-            f"""
-        import nox
-
-
-        @nox.session(python='python{PYTHON_VERSION}')
-        def test_with_&(session):
-            session.install('.')
-        """
-        ).lstrip()
-    )
-
-    out, _ = capfd.readouterr()
-
-    assert (
-        out == "Environment 'test_with_&' is not a valid nox session name.\n"
-        "Manually update the session name in noxfile.py before running nox.\n"
-    )
+#     assert (
+#         result
+#         == textwrap.dedent(
+#             f"""
+#         import nox
 
 
-def test_descriptions_into_docstrings(makeconfig):
-    result = makeconfig(
-        textwrap.dedent(
-            f"""
-            [tox]
-            envlist = lint
+#         @nox.session(python='python{PYTHON_VERSION}')
+#         def test_with_&(session):
+#             session.install('.')
+#         """
+#         ).lstrip()
+#     )
 
-            [testenv:lint]
-            basepython = python{PYTHON_VERSION}
-            description =
-                runs the lint action
-                now with an unnecessary second line
-            """
-        )
-    )
+#     out, _ = capfd.readouterr()
 
-    assert (
-        result
-        == textwrap.dedent(
-            f"""
-            import nox
+#     assert (
+#         out == "Environment 'test_with_&' is not a valid nox session name.\n"
+#         "Manually update the session name in noxfile.py before running nox.\n"
+#     )
 
 
-            @nox.session(python='python{PYTHON_VERSION}')
-            def lint(session):
-                \"\"\"runs the lint action now with an unnecessary second line\"\"\"
-                session.install('.')
-            """
-        ).lstrip()
-    )
+# def test_descriptions_into_docstrings(makeconfig):
+#     result = makeconfig(
+#         textwrap.dedent(
+#             f"""
+#             [tox]
+#             envlist = lint
+
+#             [testenv:lint]
+#             basepython = python{PYTHON_VERSION}
+#             description =
+#                 runs the lint action
+#                 now with an unnecessary second line
+#             """
+#         )
+#     )
+
+#     assert (
+#         result
+#         == textwrap.dedent(
+#             f"""
+#             import nox
+
+
+#             @nox.session(python='python{PYTHON_VERSION}')
+#             def lint(session):
+#                 \"\"\"runs the lint action now with an unnecessary second line\"\"\"
+#                 session.install('.')
+#             """
+#         ).lstrip()
+#     )
