@@ -628,6 +628,7 @@ class VirtualEnv(ProcessEnv):
             f"Creating virtual environment ({self.venv_backend}) using"
             f" {resolved_interpreter_name} in {self.location_name}"
         )
+        logger.info(cmd)
         nox.command.run(cmd, silent=True, log=nox.options.verbose or False)
 
         return True

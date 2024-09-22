@@ -52,6 +52,8 @@ if shutil.which("micromamba"):
 def tests(session: nox.Session, tox_version: str) -> None:
     """Run test suite with pytest."""
 
+    session.run("python", "--version")
+    session.run("which", "python")
     coverage_file = (
         f".coverage.{sys.platform}.{session.python}.tox{tox_version.lstrip('<')}"
     )
@@ -61,9 +63,6 @@ def tests(session: nox.Session, tox_version: str) -> None:
     session.install("-e.[tox_to_nox]")
     if tox_version != "latest":
         session.install(f"tox{tox_version}")
-    session.run("python", "--version")
-    session.run("echo", "$PATH")
-    session.run("which", "python")
     session.run(
         "pytest",
         "--cov",
