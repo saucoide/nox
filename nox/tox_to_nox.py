@@ -80,14 +80,15 @@ def main() -> None:
 
         config: dict[str, dict[str, Any]] = {}
 
+        print("config sections:")
         for name, section in original_config.items():
-            print("config sections:")
-            print(name, section)
             if name == "DEFAULT":
                 continue
 
             config[name] = dict(section)
             # Convert set_env from string to dict
+            for a, b in section.items():
+                print(a, b)
             set_env = {}
             for var in section.get("set_env", "").strip().splitlines():
                 k, v = var.split("=")
@@ -132,5 +133,7 @@ def main() -> None:
         config = tox.config.parseconfig([])
 
     output = _TEMPLATE.render(config=config, wrapjoin=wrapjoin, fixname=fixname)
+    print("output")
+    print(output)
 
     write_output_to_file(output, args.output)
