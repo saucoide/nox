@@ -33,6 +33,7 @@ def makeconfig(tmpdir):
         old = tmpdir.chdir()
         try:
             sys.argv = [sys.executable]
+            print(sys.argv)
             tox_to_nox.main()
             return tmpdir.join("noxfile.py").read()
         finally:
@@ -50,6 +51,8 @@ def test_trivial(makeconfig):
     """
         )
     )
+
+    print(f"envlist = py{PYTHON_VERSION_NODOT}")
     print(result)
     assert (
         result

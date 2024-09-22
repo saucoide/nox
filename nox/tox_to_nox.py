@@ -77,6 +77,8 @@ def main() -> None:
         output = check_output(["tox", "config"], text=True)
         original_config = ConfigParser()
         original_config.read_string(output)
+
+        print(original_config)
         config: dict[str, dict[str, Any]] = {}
 
         for name, section in original_config.items():
