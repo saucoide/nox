@@ -40,6 +40,21 @@ def makeconfig(tmpdir):
 
     return makeconfig
 
+def test_sauco():
+    from subprocess import check_output
+    import sys
+    import os
+
+    print(check_output(["python", "--version"], text=True))
+    print(sys.executable)
+    print(sys.version)
+    print(os.getenv("PATH"))
+
+    if TOX4:
+        assert False
+
+
+
 
 def test_trivial(makeconfig):
     result = makeconfig(
