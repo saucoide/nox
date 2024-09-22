@@ -63,6 +63,7 @@ def tests(session: nox.Session, tox_version: str) -> None:
         session.install(f"tox{tox_version}")
     session.run(
         "pytest",
+        "--show-capture",
         "--cov",
         "--cov-config",
         "pyproject.toml",
