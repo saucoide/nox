@@ -61,6 +61,9 @@ def tests(session: nox.Session, tox_version: str) -> None:
     session.install("-e.[tox_to_nox]")
     if tox_version != "latest":
         session.install(f"tox{tox_version}")
+    session.run("python", "--version")
+    session.run("echo", "$PATH")
+    session.run("which", "python")
     session.run(
         "pytest",
         "--cov",
