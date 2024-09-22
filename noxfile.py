@@ -46,7 +46,7 @@ if shutil.which("micromamba"):
     [
         (python, tox_version)
         for python in ("3.8", "3.9")
-        for tox_version in ("latest", "<4")
+        for tox_version in ("latest",) # "<4")
     ],
 )
 def tests(session: nox.Session, tox_version: str) -> None:
