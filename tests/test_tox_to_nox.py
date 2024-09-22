@@ -50,7 +50,7 @@ def test_trivial(makeconfig):
     """
         )
     )
-
+    assert sys.executable == "what"
     assert (
         result
         == textwrap.dedent(
