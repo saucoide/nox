@@ -136,10 +136,27 @@ def setup_logging(
 
     active_handlers = [handler.get_name() for handler in root_logger.handlers]
 
-    if "nox_stream_handler" not in active_handlers:
-        handler = logging.StreamHandler()
-        handler.set_name("nox_stream_handler")
-        root_logger.addHandler(handler)
+    # if "nox_stream_handler" not in active_handlers:
+    handler = logging.StreamHandler()
+    handler.set_name("nox_stream_handler")
+    handler.setFormatter(_get_formatter(color=color, add_timestamp=add_timestamp))
+    root_logger.addHandler(handler)
+
+    # if "nox_mem_handler" not in active_handlers:
+    #     breakpoint()
+    #     streamh = logging.StreamHandler()
+    #     handler = MemoryHandler(1000, target=streamh)
+    #     handler.set_name("nox_mem_handler")
+    #     root_logger.addHandler(handler)
+
+    # handler = logging.StreamHandler()
+    # handler.set_name("nox-stream-handler")
+    # handler.setFormatter(_get_formatter(color=color, add_timestamp=add_timestamp))
+    #
+    # mem_handler = MemoryHandler(1000, target=handler)
+    # handler.set_name("nox-mem-handler")
+    # root_logger.addHandler(mem_handler)
+    # root_logger.addHandler(handler)
 
     # Silence noisy loggers
     logging.getLogger("sh").setLevel(logging.WARNING)

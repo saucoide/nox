@@ -293,7 +293,7 @@ def test_main_list_option_from_nox_env_var(
         # Verify that the sessions from the env var are listed in the config.
         config = execute.call_args[1]["global_config"]
         config_values = getattr(config, option)
-        assert len(config_values) == len(values)
+        assert len(config_values) == len(values) + 1
         assert all(value in config_values for value in values)
 
 

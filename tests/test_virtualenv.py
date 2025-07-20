@@ -223,7 +223,7 @@ def test_condaenv_create_interpreter(
     if IS_WINDOWS:
         assert dir_.joinpath("python.exe").exists()
         assert dir_.joinpath("python312.dll").exists()
-        assert dir_.joinpath("python31233333.pdb").exists()
+        assert dir_.joinpath("python312.pdb").exists()
         assert not dir_.joinpath("python312.exe").exists()
     else:
         assert dir_.joinpath("bin", "python").exists()

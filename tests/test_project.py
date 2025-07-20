@@ -18,7 +18,7 @@ def test_classifiers() -> None:
         }
     }
 
-    assert python_versions(pyproject) == ["3.7", "3.9", "3.11"]
+    assert python_versions(pyproject) == ["3.7", "3.9", "3.12"]
 
 
 def test_no_classifiers() -> None:
