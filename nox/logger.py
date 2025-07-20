@@ -134,13 +134,19 @@ def setup_logging(
     else:
         root_logger.setLevel(logging.DEBUG)
 
-    active_handlers = [handler.get_name() for handler in root_logger.handlers]
+    if root_logger.hasHandlers():
+        root_logger.handlers.clear()
 
-    # if "nox_stream_handler" not in active_handlers:
     handler = logging.StreamHandler()
-    handler.set_name("nox_stream_handler")
     handler.setFormatter(_get_formatter(color=color, add_timestamp=add_timestamp))
     root_logger.addHandler(handler)
+    # active_handlers = [handler.get_name() for handler in root_logger.handlers]
+
+    # if "nox_stream_handler" not in active_handlers:
+    #     handler = logging.StreamHandler()
+    #     handler.set_name("nox_stream_handler")
+    #     handler.setFormatter(_get_formatter(color=color, add_timestamp=add_timestamp))
+    #     root_logger.addHandler(handler)
 
     # if "nox_mem_handler" not in active_handlers:
     #     breakpoint()
@@ -160,3 +166,5 @@ def setup_logging(
 
     # Silence noisy loggers
     logging.getLogger("sh").setLevel(logging.WARNING)
+    # logging.getLogger("httpcore").setLevel(logging.WARNING)
+    # logging.getLogger("httpx").setLevel(logging.WARNING)
