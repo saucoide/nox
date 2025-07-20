@@ -133,10 +133,16 @@ def setup_logging(
     else:
         root_logger.setLevel(logging.DEBUG)
 
-    if root_logger.hasHandlers():
-        root_logger.handlers.clear()
+    active_handlers = [
+        handler
+        for handler in root_logger.handlers
+        if handler.get_name() == "nox-stream-handler"
+    ]
+    for handler in active_handlers:
+        root_logger.removeHandler(handler)
 
     handler = logging.StreamHandler()
+    handler.set_name("nox-stream-handler")
     handler.setFormatter(_get_formatter(color=color, add_timestamp=add_timestamp))
     root_logger.addHandler(handler)
 
