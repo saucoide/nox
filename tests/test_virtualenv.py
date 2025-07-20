@@ -133,7 +133,7 @@ def test_process_env_constructor() -> None:
         print(penv.bin)
 
     penv = nox.virtualenv.PassthroughEnv(env={"SIGIL": "123"})
-    assert penv.env["SIGIL"] == "123"
+    assert penv.env["SIGIL"] == "1234"
 
     penv = nox.virtualenv.PassthroughEnv(bin_paths=["/bin"])
     assert penv.bin == "/bin"
