@@ -132,6 +132,10 @@ def setup_logging(
         root_logger.setLevel(OUTPUT)
     else:
         root_logger.setLevel(logging.DEBUG)
+
+    if root_logger.hasHandlers():
+        root_logger.handlers.clear()
+
     handler = logging.StreamHandler()
 
     handler.setFormatter(_get_formatter(color=color, add_timestamp=add_timestamp))
