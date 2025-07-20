@@ -128,14 +128,18 @@ def setup_logging(
             colorlog. Otherwise, it will be plaintext.
     """
     root_logger = logging.getLogger()
+
     if verbose:
         root_logger.setLevel(OUTPUT)
     else:
         root_logger.setLevel(logging.DEBUG)
-    handler = logging.StreamHandler()
 
-    handler.setFormatter(_get_formatter(color=color, add_timestamp=add_timestamp))
-    root_logger.addHandler(handler)
+    active_handlers = [handler.get_name() for handler in root_logger.handlers]
+
+    if "nox_stream_handler" not in active_handlers:
+        handler = logging.StreamHandler()
+        handler.set_name("nox_stream_handler")
+        root_logger.addHandler(handler)
 
     # Silence noisy loggers
     logging.getLogger("sh").setLevel(logging.WARNING)
