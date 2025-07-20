@@ -150,4 +150,4 @@ def setup_logging(
     logging.getLogger("sh").setLevel(logging.WARNING)
     logging.getLogger("httpx").setLevel(logging.WARNING)
     logging.getLogger("httpcore").setLevel(logging.WARNING)
-    logging.getLogger("pbs_installer").setLevel(logging.WARNING)
+    logging.getLogger("pbs_installer._install").setLevel(logging.WARNING)
